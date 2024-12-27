@@ -499,6 +499,169 @@ def create_refined_model():
     model = Model(inputs=input_layer, outputs=output_layer)
     return model
 
+#######################################################################################################################
+#######################################################################################################################
+#######################################################################################################################
+def create_improved_model_similar_limpo():
+    input_layer = Input(shape=(3, 3, 2))
+
+    x = Conv2D(64, kernel_size=(3, 3), padding='same')(input_layer)
+    x = BatchNormalization()(x)
+    x = Activation('relu')(x)
+    #x = self_attention_block(x)
+    x = Conv2D(64, kernel_size=(3, 3), padding='same')(x)
+    x = BatchNormalization()(x)
+    x = Activation('relu')(x)
+    #x = self_attention_block(x)
+    x = Conv2D(64, kernel_size=(3, 3), padding='same')(x)
+    x = BatchNormalization()(x)
+    x = Activation('relu')(x)
+    #x = self_attention_block(x)
+    x = Dropout(0.5)(x)
+
+    #x = self_attention_block(x)
+    x = Conv2D(128, (3, 3), padding='same')(x)
+    x = BatchNormalization()(x)
+    x = Activation('relu')(x)
+    #x = self_attention_block(x)
+    x = Conv2D(128, (3, 3), padding='same')(x)
+    x = BatchNormalization()(x)
+    x = Activation('relu')(x)
+    #x = self_attention_block(x)
+    x = Dropout(0.5)(x)
+    
+    x = Conv2D(256, (3, 3), padding='same')(x)
+    x = BatchNormalization()(x)
+    x = Activation('relu')(x)
+    x = Conv2D(256, (3, 3), padding='same')(x)
+    x = BatchNormalization()(x)
+    x = Activation('relu')(x)
+    x = Conv2D(256, (3, 3), padding='same')(x)
+    x = BatchNormalization()(x)
+    x = Activation('relu')(x)
+    x = Dropout(0.5)(x)
+
+    x = Flatten()(x)
+    x = Dense(512, activation='relu', kernel_regularizer=l2(0.001))(x)
+    x = Dropout(0.5)(x)
+    x = Dense(256, activation='relu', kernel_regularizer=l2(0.001))(x)
+    x = Dropout(0.5)(x)
+    output_layer = Dense(3, activation='linear')(x)
+
+    model = Model(inputs=input_layer, outputs=output_layer)
+    
+    return model
+    
+#######################################################################################################################
+#######################################################################################################################
+#######################################################################################################################
+def create_improved_model_similar_limpo_2():
+    input_layer = Input(shape=(3, 3, 2))
+
+    x = Conv2D(64, kernel_size=(3, 3), padding='same')(input_layer)
+    x = BatchNormalization()(x)
+    x = Activation('relu')(x)
+    #x = self_attention_block(x)
+    x = Conv2D(64, kernel_size=(3, 3), padding='same')(x)
+    x = BatchNormalization()(x)
+    x = Activation('relu')(x)
+    #x = self_attention_block(x)
+    x = Conv2D(64, kernel_size=(3, 3), padding='same')(x)
+    x = BatchNormalization()(x)
+    x = Activation('relu')(x)
+    #x = self_attention_block(x)
+    x = Dropout(0.5)(x)
+
+    #x = self_attention_block(x)
+    x = Conv2D(128, (3, 3), padding='same')(x)
+    x = BatchNormalization()(x)
+    x = Activation('relu')(x)
+    #x = self_attention_block(x)
+    x = Conv2D(128, (3, 3), padding='same')(x)
+    x = BatchNormalization()(x)
+    x = Activation('relu')(x)
+    #x = self_attention_block(x)
+    x = Dropout(0.5)(x)
+    
+    x = Conv2D(256, (3, 3), padding='same')(x)
+    x = BatchNormalization()(x)
+    x = Activation('relu')(x)
+    x = Conv2D(256, (3, 3), padding='same')(x)
+    x = BatchNormalization()(x)
+    x = Activation('relu')(x)
+    x = Conv2D(256, (3, 3), padding='same')(x)
+    x = BatchNormalization()(x)
+    x = Activation('relu')(x)
+    x = Dropout(0.5)(x)
+
+    x = Flatten()(x)
+    x = Dense(512, activation='relu')(x)
+    #x = Dense(512, activation='relu', kernel_regularizer=l2(0.001))(x)
+    x = Dropout(0.5)(x)
+    x = Dense(256, activation='relu')(x)
+    #x = Dense(256, activation='relu', kernel_regularizer=l2(0.001))(x)
+    x = Dropout(0.5)(x)
+    output_layer = Dense(3, activation='linear')(x)
+
+    model = Model(inputs=input_layer, outputs=output_layer)
+    
+    return model
+    
+#######################################################################################################################
+#######################################################################################################################
+#######################################################################################################################
+
+def create_improved_model_similar_limpo_3():
+    input_layer = Input(shape=(3, 3, 2))
+
+    x = Conv2D(64, kernel_size=(3, 3), padding='same')(input_layer)
+    #x = BatchNormalization()(x)
+    x = Activation('relu')(x)
+    #x = self_attention_block(x)
+    x = Conv2D(64, kernel_size=(3, 3), padding='same')(x)
+    #x = BatchNormalization()(x)
+    x = Activation('relu')(x)
+    #x = self_attention_block(x)
+    x = Conv2D(64, kernel_size=(3, 3), padding='same')(x)
+    #x = BatchNormalization()(x)
+    x = Activation('relu')(x)
+    #x = self_attention_block(x)
+    x = Dropout(0.5)(x)
+
+    #x = self_attention_block(x)
+    x = Conv2D(128, (3, 3), padding='same')(x)
+    #x = BatchNormalization()(x)
+    x = Activation('relu')(x)
+    #x = self_attention_block(x)
+    x = Conv2D(128, (3, 3), padding='same')(x)
+    #x = BatchNormalization()(x)
+    x = Activation('relu')(x)
+    #x = self_attention_block(x)
+    x = Dropout(0.5)(x)
+    
+    x = Conv2D(256, (3, 3), padding='same')(x)
+    #x = BatchNormalization()(x)
+    x = Activation('relu')(x)
+    x = Conv2D(256, (3, 3), padding='same')(x)
+    #x = BatchNormalization()(x)
+    x = Activation('relu')(x)
+    x = Conv2D(256, (3, 3), padding='same')(x)
+    #x = BatchNormalization()(x)
+    x = Activation('relu')(x)
+    x = Dropout(0.5)(x)
+
+    x = Flatten()(x)
+    x = Dense(512, activation='relu')(x)
+    #x = Dense(512, activation='relu', kernel_regularizer=l2(0.001))(x)
+    x = Dropout(0.5)(x)
+    x = Dense(256, activation='relu')(x)
+    #x = Dense(256, activation='relu', kernel_regularizer=l2(0.001))(x)
+    x = Dropout(0.5)(x)
+    output_layer = Dense(3, activation='linear')(x)
+
+    model = Model(inputs=input_layer, outputs=output_layer)
+    
+    return model
 
 #######################################################################################################################
 # Graphics & Datalogging
@@ -537,7 +700,7 @@ def train_model(model, X_train, y_train, epochs_, batch_size_,validation_split_p
 def main():
     
     # Read data
-    file_path = "Dataset.txt"  
+    file_path = "Dataset_Version_2.txt"  
     data = read_data(file_path)
     
     # Preprocessing
@@ -551,7 +714,12 @@ def main():
     #model = create_improved_model()
     #model = create_simplified_model()
     #model = create_refined_model()
+    
     model = create_improved_model_similar_()
+    #model = create_improved_model_similar_limpo()
+    #model = create_improved_model_similar_limpo_2()
+    #model = create_improved_model_similar_limpo_3()
+    
 
     model.summary()
     
@@ -559,7 +727,7 @@ def main():
     compile_model(model)
     
     # Train model
-    epochs = 1
+    epochs = 50000
     batch_size = 256
     history = train_model(model, X, Y, epochs, batch_size, 0.2)
     
@@ -567,11 +735,11 @@ def main():
     plot_loss_accuracy(history)
     
     # Save training history and model configuration
-    file_path_results = "training_create_improved_model_similar_30000_256.txt"  
+    file_path_results = "training_create_improved_model_similar_50000_256_.txt"  
     save_history_and_model(history, model, file_path_results)
     
     # Save the trained model
-    model.save('model_create_improved_model_similar_30000_256.h5') 
+    model.save('model_create_improved_model_similar_50000_256_.h5') 
 
 # Entry point of the script
 if __name__ == "__main__":

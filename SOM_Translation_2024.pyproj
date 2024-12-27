@@ -4,7 +4,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>8667ba92-18c4-495d-96c9-fd916453d6ef</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>SOM_Translation_2024.py</StartupFile>
+    <StartupFile>SOM_Orientation_2024.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -22,6 +22,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="SOM_Orientation_2024.py" />
+    <Compile Include="SOM_Orientation_Test_2024.py" />
     <Compile Include="SOM_Translation_2024.py" />
     <Compile Include="SOM_Translation_Orientation_2024.py" />
     <Compile Include="SOM_Translation_Orientation_Test_2024.py" />

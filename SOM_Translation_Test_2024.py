@@ -31,6 +31,12 @@ def preprocess_data_3D(data):
         y.append([float(val) for val in values[:3]])  # First 3 numbers
     return np.array(X), np.array(y)
 
+# Function to add Gaussian noise
+def add_gaussian_noise(X, noise_mean, noise_std):
+    noise = np.random.normal(noise_mean, noise_std, X.shape)
+    X_noisy = X + noise
+    return X_noisy
+
 def squeeze_excite_block(input_tensor, ratio=16):
     channels = input_tensor.shape[-1]
 
@@ -122,6 +128,58 @@ def create_state_of_the_art_model():
     
     return model
 
+##############################################################
+
+def create_improved_model_similar_():
+    input_layer = Input(shape=(3, 3, 2))
+
+    x = Conv2D(64, kernel_size=(3, 3), padding='same')(input_layer)
+    x = BatchNormalization()(x)
+    x = Activation('relu')(x)
+    x = self_attention_block(x)
+    x = Conv2D(64, kernel_size=(3, 3), padding='same')(x)
+    x = BatchNormalization()(x)
+    x = Activation('relu')(x)
+    x = self_attention_block(x)
+    x = Conv2D(64, kernel_size=(3, 3), padding='same')(x)
+    x = BatchNormalization()(x)
+    x = Activation('relu')(x)
+    x = self_attention_block(x)
+    x = Dropout(0.5)(x)
+
+    x = self_attention_block(x)
+    x = Conv2D(128, (3, 3), padding='same')(x)
+    x = BatchNormalization()(x)
+    x = Activation('relu')(x)
+    x = self_attention_block(x)
+    x = Conv2D(128, (3, 3), padding='same')(x)
+    x = BatchNormalization()(x)
+    x = Activation('relu')(x)
+    x = self_attention_block(x)
+    x = Dropout(0.5)(x)
+    
+    x = Conv2D(256, (3, 3), padding='same')(x)
+    x = BatchNormalization()(x)
+    x = Activation('relu')(x)
+    x = Conv2D(256, (3, 3), padding='same')(x)
+    x = BatchNormalization()(x)
+    x = Activation('relu')(x)
+    x = Conv2D(256, (3, 3), padding='same')(x)
+    x = BatchNormalization()(x)
+    x = Activation('relu')(x)
+    x = Dropout(0.5)(x)
+
+    x = Flatten()(x)
+    x = Dense(512, activation='relu', kernel_regularizer=l2(0.001))(x)
+    x = Dropout(0.5)(x)
+    x = Dense(256, activation='relu', kernel_regularizer=l2(0.001))(x)
+    x = Dropout(0.5)(x)
+    output_layer = Dense(3, activation='linear')(x)
+
+    model = Model(inputs=input_layer, outputs=output_layer)
+    
+    return model
+
 # Predict with model
 def predict_with_model(model, X):
     predictions = model.predict(X)
@@ -135,29 +193,38 @@ def evaluate_accuracy(y_true, y_pred):
 # Main function
 def main():
     # Read data
-    file_path = "Data.txt"
+    file_path = "5_meters_0.5_Final.txt"
     data = read_data(file_path)
 
     # Preprocessing
     X, Y = preprocess_data_3D(data)
+    
+    mean_ = 0
+    #variance_ = 150
+    #standard_deviation_ = sqrt(variance_)
+    standard_deviation_ = 30;
+    X2 = add_gaussian_noise(X,mean_,standard_deviation_)
 
     # Create model
-    model = create_state_of_the_art_model()
+    #model = create_state_of_the_art_model()
+    model = create_improved_model_similar_()
 
     # Load weights
     try:
-        model.load_weights('model_create_state_of_the_art_model_30000_256.h5')
+        model.load_weights('model_create_improved_model_similar_50000_data_2_256.h5')
     except Exception as e:
         print("Error loading weights:", e)
         return
 
     # Predict
-    predictions = predict_with_model(model, X)
+    predictions = predict_with_model(model, X2)
     
     # Accuracy
     accuracy = evaluate_accuracy(Y, predictions)
     
-    np.savetxt('accuracy_Translation.txt', accuracy, delimiter=',', fmt='%f')
+    np.savetxt('accuracy_Translation_5_meters_0.5_Final_mean_0_std_30.txt', accuracy, delimiter=',', fmt='%f')
+    np.savetxt('predictions_Translation_5_meters_0.5_Final_mean_0_std_30.txt', predictions, delimiter=',', fmt='%f')
+
     
     print("Y:", Y)
     print("predictions:", predictions)

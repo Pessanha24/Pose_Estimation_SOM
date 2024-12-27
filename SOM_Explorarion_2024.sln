@@ -1,0 +1,23 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34525.116
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "SOM_Translation_2024", "SOM_Translation_2024.pyproj", "{8667BA92-18C4-495D-96C9-FD916453D6EF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8667BA92-18C4-495D-96C9-FD916453D6EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8667BA92-18C4-495D-96C9-FD916453D6EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C39B38E8-8C7C-4D31-81B9-15ACB2444E59}
+	EndGlobalSection
+EndGlobal

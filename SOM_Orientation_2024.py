@@ -433,6 +433,206 @@ def create_improved_model_quaternion_QRELU(): #"Quaternion Recurrent Neural Netw
     model = Model(inputs=input_layer, outputs=output_quaternion)
     
     return model
+    
+#######################################################################################################################
+#######################################################################################################################
+#######################################################################################################################
+
+def create_improved_model_quaternion_QRELU_2(): #"Quaternion Recurrent Neural Networks" by Palangi et al. (2019)
+    input_layer = Input(shape=(3, 3, 2))
+
+    x = Conv2D(64, kernel_size=(3, 3), padding='same')(input_layer)
+    x = BatchNormalization()(x)
+    x = Activation('relu')(x)
+    #x = self_attention_block(x)  # Apply self-attention
+    x = Conv2D(64, kernel_size=(3, 3), padding='same')(x)
+    x = BatchNormalization()(x)
+    x = Activation('relu')(x)
+    #x = self_attention_block(x)  # Apply self-attention
+    x = Conv2D(64, kernel_size=(3, 3), padding='same')(x)
+    x = BatchNormalization()(x)
+    x = Activation('relu')(x)
+    #x = self_attention_block(x)  # Apply self-attention
+    x = Dropout(0.5)(x)
+
+    x = Conv2D(128, (3, 3), padding='same')(x)
+    x = BatchNormalization()(x)
+    x = Activation('relu')(x)
+    #x = self_attention_block(x)  # Apply self-attention
+    x = Conv2D(128, (3, 3), padding='same')(x)
+    x = BatchNormalization()(x)
+    x = Activation('relu')(x)
+    #x = self_attention_block(x)  # Apply self-attention
+    x = Dropout(0.5)(x)
+    
+    x = Conv2D(256, (3, 3), padding='same')(x)
+    x = BatchNormalization()(x)
+    x = Activation('relu')(x)
+    x = Conv2D(256, (3, 3), padding='same')(x)
+    x = BatchNormalization()(x)
+    x = Activation('relu')(x)
+    x = Conv2D(256, (3, 3), padding='same')(x)
+    x = BatchNormalization()(x)
+    x = Activation('relu')(x)
+    x = Dropout(0.5)(x)
+
+    x = Flatten()(x)
+    x = Dense(512, kernel_regularizer=l2(0.001))(x)
+    x = Activation(QReLU)(x)  # Apply QReLU activation
+    x = Dropout(0.5)(x)
+    x = Dense(256, kernel_regularizer=l2(0.001))(x)
+    x = Activation(QReLU)(x)  # Apply QReLU activation
+    x = Dropout(0.5)(x)
+    output_quaternion_raw = Dense(4, name='quaternion')(x)  # Output quaternion
+    
+    # Quaternion normalization to ensure unit length
+    def normalize_quaternion(x):
+        """
+        Function to normalize quaternion to unit length.
+        """
+        return x / tf.sqrt(tf.reduce_sum(tf.square(x), axis=-1, keepdims=True))
+
+    output_quaternion = Lambda(normalize_quaternion, name='normalized_quaternion')(output_quaternion_raw)
+    
+    model = Model(inputs=input_layer, outputs=output_quaternion)
+    
+    return model
+    
+#######################################################################################################################
+#######################################################################################################################
+#######################################################################################################################
+
+def create_improved_model_quaternion_QRELU_3(): #"Quaternion Recurrent Neural Networks" by Palangi et al. (2019)
+    input_layer = Input(shape=(3, 3, 2))
+
+    x = Conv2D(64, kernel_size=(3, 3), padding='same')(input_layer)
+    x = BatchNormalization()(x)
+    x = Activation('relu')(x)
+    #x = self_attention_block(x)  # Apply self-attention
+    x = Conv2D(64, kernel_size=(3, 3), padding='same')(x)
+    x = BatchNormalization()(x)
+    x = Activation('relu')(x)
+    #x = self_attention_block(x)  # Apply self-attention
+    x = Conv2D(64, kernel_size=(3, 3), padding='same')(x)
+    x = BatchNormalization()(x)
+    x = Activation('relu')(x)
+    #x = self_attention_block(x)  # Apply self-attention
+    x = Dropout(0.5)(x)
+
+    x = Conv2D(128, (3, 3), padding='same')(x)
+    x = BatchNormalization()(x)
+    x = Activation('relu')(x)
+    #x = self_attention_block(x)  # Apply self-attention
+    x = Conv2D(128, (3, 3), padding='same')(x)
+    x = BatchNormalization()(x)
+    x = Activation('relu')(x)
+    #x = self_attention_block(x)  # Apply self-attention
+    x = Dropout(0.5)(x)
+    
+    x = Conv2D(256, (3, 3), padding='same')(x)
+    x = BatchNormalization()(x)
+    x = Activation('relu')(x)
+    x = Conv2D(256, (3, 3), padding='same')(x)
+    x = BatchNormalization()(x)
+    x = Activation('relu')(x)
+    x = Conv2D(256, (3, 3), padding='same')(x)
+    x = BatchNormalization()(x)
+    x = Activation('relu')(x)
+    x = Dropout(0.5)(x)
+
+    x = Flatten()(x)
+    x = Dense(512, activation='relu')(x)
+    #x = Dense(512, kernel_regularizer=l2(0.001))(x)
+    #x = Activation(QReLU)(x)  # Apply QReLU activation
+    x = Activation('relu')(x)
+    x = Dropout(0.5)(x)
+    x = Dense(256, activation='relu')(x)
+    #x = Dense(256, kernel_regularizer=l2(0.001))(x)
+    #x = Activation(QReLU)(x)  # Apply QReLU activation
+    x = Activation('relu')(x)
+    x = Dropout(0.5)(x)
+    output_quaternion_raw = Dense(4, name='quaternion')(x)  # Output quaternion
+    
+    # Quaternion normalization to ensure unit length
+    def normalize_quaternion(x):
+        """
+        Function to normalize quaternion to unit length.
+        """
+        return x / tf.sqrt(tf.reduce_sum(tf.square(x), axis=-1, keepdims=True))
+
+    output_quaternion = Lambda(normalize_quaternion, name='normalized_quaternion')(output_quaternion_raw)
+    
+    model = Model(inputs=input_layer, outputs=output_quaternion)
+    
+    return model
+    
+#######################################################################################################################
+#######################################################################################################################
+#######################################################################################################################
+
+def create_improved_model_quaternion_QRELU_4(): #"Quaternion Recurrent Neural Networks" by Palangi et al. (2019)
+    input_layer = Input(shape=(3, 3, 2))
+
+    x = Conv2D(64, kernel_size=(3, 3), padding='same')(input_layer)
+    #x = BatchNormalization()(x)
+    x = Activation('relu')(x)
+    #x = self_attention_block(x)  # Apply self-attention
+    x = Conv2D(64, kernel_size=(3, 3), padding='same')(x)
+    #x = BatchNormalization()(x)
+    x = Activation('relu')(x)
+    #x = self_attention_block(x)  # Apply self-attention
+    x = Conv2D(64, kernel_size=(3, 3), padding='same')(x)
+    #x = BatchNormalization()(x)
+    x = Activation('relu')(x)
+    #x = self_attention_block(x)  # Apply self-attention
+    x = Dropout(0.5)(x)
+
+    x = Conv2D(128, (3, 3), padding='same')(x)
+    #x = BatchNormalization()(x)
+    x = Activation('relu')(x)
+    #x = self_attention_block(x)  # Apply self-attention
+    x = Conv2D(128, (3, 3), padding='same')(x)
+    #x = BatchNormalization()(x)
+    x = Activation('relu')(x)
+    #x = self_attention_block(x)  # Apply self-attention
+    x = Dropout(0.5)(x)
+    
+    x = Conv2D(256, (3, 3), padding='same')(x)
+    #x = BatchNormalization()(x)
+    x = Activation('relu')(x)
+    x = Conv2D(256, (3, 3), padding='same')(x)
+    #x = BatchNormalization()(x)
+    x = Activation('relu')(x)
+    x = Conv2D(256, (3, 3), padding='same')(x)
+    #x = BatchNormalization()(x)
+    x = Activation('relu')(x)
+    x = Dropout(0.5)(x)
+
+    x = Flatten()(x)
+    x = Dense(512, activation='relu')(x)
+    #x = Dense(512, kernel_regularizer=l2(0.001))(x)
+    #x = Activation(QReLU)(x)  # Apply QReLU activation
+    x = Activation('relu')(x)
+    x = Dropout(0.5)(x)
+    x = Dense(256, activation='relu')(x)
+    #x = Dense(256, kernel_regularizer=l2(0.001))(x)
+    #x = Activation(QReLU)(x)  # Apply QReLU activation
+    x = Activation('relu')(x)
+    x = Dropout(0.5)(x)
+    output_quaternion_raw = Dense(4, name='quaternion')(x)  # Output quaternion
+    
+    # Quaternion normalization to ensure unit length
+    def normalize_quaternion(x):
+        """
+        Function to normalize quaternion to unit length.
+        """
+        return x / tf.sqrt(tf.reduce_sum(tf.square(x), axis=-1, keepdims=True))
+
+    output_quaternion = Lambda(normalize_quaternion, name='normalized_quaternion')(output_quaternion_raw)
+    
+    model = Model(inputs=input_layer, outputs=output_quaternion)
+    
+    return model
 
 #######################################################################################################################
 #######################################################################################################################
@@ -498,7 +698,7 @@ def visualize_model(model, filename):
 # Main function
 def main():
     # Read data
-    file_path = "Dataset.txt"  
+    file_path = "Dataset_Version_2.txt"  
     data = read_data(file_path)
     
     # Preprocessing
@@ -516,6 +716,9 @@ def main():
     #model = create_modified_model_2_quaternion()
     #model = create_improved_model_quaternion() #Similar translation
     model=create_improved_model_quaternion_QRELU()
+    #model=create_improved_model_quaternion_QRELU_2()
+    #model=create_improved_model_quaternion_QRELU_3()
+    #model = create_improved_model_quaternion_QRELU_4()
 
     model.summary()
     
@@ -523,7 +726,7 @@ def main():
     compile_model(model)
     
     # Train model
-    epochs = 30000
+    epochs = 50000
     batch_size = 256
     history = train_model(model, X, Y, epochs, batch_size, 0.2)
     
@@ -531,11 +734,11 @@ def main():
     plot_loss_accuracy(history)
     
     # Save training history and model configuration
-    file_path_results = "training_create_improved_model_quaternion_QRELU_quaternion_loss_30000_256.txt"  
+    file_path_results = "training_create_improved_model_quaternion_QRELU_quaternion_loss_data_2_50000_256_.txt"  
     save_history_and_model(history, model, file_path_results)
     
     # Save the trained model
-    model.save('model_create_improved_model_quaternion_QRELU_quaternion_loss_30000_256.h5') 
+    model.save('model_create_improved_model_quaternion_QRELU_quaternion_loss_data_2_50000_256_.h5') 
 
 # Call the main function
 if __name__ == "__main__":
